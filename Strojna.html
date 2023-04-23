@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Oceń swoje samopoczucie</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		.container {
+			max-width: 600px;
+			margin: 0 auto;
+			text-align: center;
+		}
+		.star-rating {
+			display: inline-block;
+			font-size: 0;
+			cursor: pointer;
+		}
+		.star-rating > input[type="radio"] {
+			display: none;
+		}
+		.star-rating > label {
+			display: inline-block;
+			font-size: 32px;
+			color: #ccc;
+			cursor: pointer;
+			padding: 0 2px;
+		}
+		.star-rating > label:hover,
+		.star-rating > input[type="radio"]:checked + label {
+			color: #FFD700;
+		}
+		.comments {
+			margin-top: 30px;
+			text-align: left;
+		}
+		.comment {
+			margin-bottom: 10px;
+		}
+		.comment span {
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Oceń swoje samopoczucie</h1>
+		<p>Wybierz ilość gwiazdek:</p>
+		<div class="star-rating">
+			<input id="star-5" type="radio" name="rating" value="5">
+			<label for="star-5">&#9733;</label>
+			<input id="star-4" type="radio" name="rating" value="4">
+			<label for="star-4">&#9733;</label>
+			<input id="star-3" type="radio" name="rating" value="3">
+			<label for="star-3">&#9733;</label>
+			<input id="star-2" type="radio" name="rating" value="2">
+			<label for="star-2">&#9733;</label>
+			<input id="star-1" type="radio" name="rating" value="1">
+			<label for="star-1">&#9733;</label>
+		</div>
+		<p>Podaj swoją nazwę:</p>
+		<input type="text" id="name-input">
+		<button id="submit-btn">Dodaj opinię</button>
+		<div class="comments">
+			<h2>Opinie innych użytkowników:</h2>
+			<ul id="comments-list">
+			</ul>
+		</div>
+	</div>
+
+	<script>
+		const ratingInputs = document.querySelectorAll('input[type="radio"]');
+		const nameInput = document.getElementById('name-input');
+		const submitBtn = document.getElementById('submit-btn');
+		const commentsList = document.getElementById('comments-list');
+
+		submitBtn.addEventListener('click', addComment);
+
+		function addComment() {
+			// Get rating value and name input value
+			const rating = document.querySelector('input[name="rating"]:checked').value;
+			const name = nameInput.value;
+
+			// Create new comment element
+			const comment = document.createElement('li');
+			comment.classList.add('comment');
+
+			// Add rating and name to comment element
